@@ -1,7 +1,24 @@
 #canvasMenu {
-    border: 3px solid black;
-    background-color: rgb(213, 241, 250);
+  border: 3px solid black;
+  background-color: rgb(213, 241, 250);
 }
 #canvasPlayground {
-    border: 3px solid black;
+  border: 3px solid black;
+}
+#start {
+  position: absolute;
+  top: 65px;
+  left: 100px;
+  width: 120px;
+  height: 50px;
+  background-color: rgb(213, 241, 250);
+  border: 1px solid black;
+}
+
+.buttonActiv {
+  background: #e5e5e5;
+  -webkit-box-shadow: inset 0px 0px 7px #686868;
+  -moz-box-shadow: inset 0px 0px 7px #686868;
+  box-shadow: inset 0px 0px 7px #686868;
+  outline: none;
 }
