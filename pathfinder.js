@@ -1,7 +1,7 @@
 let cols = prompt("Wie viele Spalten? ", );
 let rows = prompt("Wie viele Reihen? ", );
-let myCanvas = document.getElementById("myCanvas");
-let ctx = myCanvas.getContext("2d");
+let canvas_pg = document.getElementById("canvasPlayground");
+let ctx_pg = canvas_pg.getContext("2d");
 
 let array_field = new Array();
 for (i = 0; i < cols; i++) {
@@ -15,20 +15,20 @@ for (i = 0; i < cols; i++) {
 function grid() {
 // VERTICAL
     for(i = 1200/cols; i < 1200; i+= (1200 / cols)) {
-        ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i, 800);
-        ctx.stroke();
+        ctx_pg.beginPath();
+        ctx_pg.strokeStyle = 'black';
+        ctx_pg.moveTo(i, 0);
+        ctx_pg.lineTo(i, 800);
+        ctx_pg.stroke();
     }
 }
 // HORIZONTAL
     for(i = 800/rows; i < 800; i+= (800 / rows)) {
-        ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        ctx.moveTo(0, i);
-        ctx.lineTo(1200, i);
-        ctx.stroke();
+        ctx_pg.beginPath();
+        ctx_pg.strokeStyle = 'black';
+        ctx_pg.moveTo(0, i);
+        ctx_pg.lineTo(1200, i);
+        ctx_pg.stroke();
     }
 
 

@@ -1,3 +1,7 @@
-#myCanvas {
-    border: 2px solid red;
+#canvasMenu {
+    border: 3px solid black;
+    background-color: rgb(213, 241, 250);
+}
+#canvasPlayground {
+    border: 3px solid black;
 }
