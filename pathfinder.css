@@ -14,7 +14,33 @@
   background-color: rgb(213, 241, 250);
   border: 1px solid black;
 }
-
+#end {
+  position: absolute;
+  top: 65px;
+  left: 300px;
+  width: 120px;
+  height: 50px;
+  background-color: rgb(213, 241, 250);
+  border: 1px solid black;
+}
+#placeBarriers {
+  position: absolute;
+  top: 65px;
+  left: 500px;
+  width: 120px;
+  height: 50px;
+  background-color: rgb(213, 241, 250);
+  border: 1px solid black;
+}
+#rects {
+  position: absolute;
+  top: 65px;
+  left: 700px;
+  width: 120px;
+  height: 50px;
+  background-color: rgb(213, 241, 250);
+  border: 1px solid black;
+}
 .buttonActiv {
   background: #e5e5e5;
   -webkit-box-shadow: inset 0px 0px 7px #686868;
