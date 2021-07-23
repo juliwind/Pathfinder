@@ -2,7 +2,8 @@ let canvas_pg = document.getElementById("canvasPlayground");
 let ctx_pg = canvas_pg.getContext("2d");
 let loopEnd_start = false;
 let loopEnd_end = false;
-let loopEnd_barriers = false;
+let loopEnd_place_barriers = false;
+let loopEnd_delete_barriers = false;
 let startX = null;
 let startY = null;
 let endX = null;
@@ -164,7 +165,7 @@ function onClickEndpoint(e) {
 
 //PLACE BARRIERS
 function placeBarriers() {
-    if (!loopEnd_barriers) {
+    if (!loopEnd_place_barriers) {
         document.getElementById('placeBarriers').classList.add("buttonActiv");
         canvas_pg.addEventListener("mousedown", onClickPlaceBarriers);
         place_barrier_loop = setTimeout(placeBarriers);
@@ -212,7 +213,7 @@ function deleteBarriers() {
     if (!loopEnd_delete_barriers) {
         document.getElementById('deleteBarriers').classList.add("buttonActiv");
         canvas_pg.addEventListener("mousedown", onClickDeleteBarriers);
-        barrier_loop = setTimeout(deleteBarriers);
+        delete_barrier_loop = setTimeout(deleteBarriers);
     }
 }
 
@@ -229,7 +230,7 @@ function onClickDeleteBarriers(e) {
     }
 
     ctx_pg.beginPath();
-    ctx_pg.fillStyle = "black";
+    ctx_pg.fillStyle = "white";
     ctx_pg.fillRect(delete_barrierX * (1200 / cols) - (1200 / cols) + 1, delete_barrierY * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
     ctx_pg.stroke();
 }
@@ -239,11 +240,9 @@ function deleteBarriersCounter() {
     if (delete_barrier_counter % 2 == 0) {
         deleteBarriersEnd();
         clearTimeout(delete_barrier_loop);
-
     }
     else {
-        placeBarriers();
-
+        deleteBarriers();
     }
 }
 function deleteBarriersEnd() {
