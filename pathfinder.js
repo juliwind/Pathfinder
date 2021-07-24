@@ -36,6 +36,11 @@ function setup() {
     console.log("field: ", array_field);
 }
 
+function startSearch() {
+    path = findPath(array_field);
+    console.log("path: ", path)
+}
+
 function setRects() {
     ctx_pg.clearRect(0, 0, canvas_pg.width, canvas_pg.height);
     array_field = new Array()
@@ -76,10 +81,15 @@ function setStartpoint() {
 
 function setStartpointTrue() {
     loopEnd_start = false
+    fillRect(startX, startY, "white");
+}
+
+function fillRect(x, y, color) {
     ctx_pg.beginPath();
-    ctx_pg.fillStyle = "white"
-    ctx_pg.fillRect(startX * (1200 / cols) - (1200 / cols) + 1, startY * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
+    ctx_pg.fillStyle = color;
+    ctx_pg.fillRect(x * (1200 / cols) - (1200 / cols) + 1, y * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
     ctx_pg.stroke();
+
 }
 
 function onClickStartpoint(e) {
