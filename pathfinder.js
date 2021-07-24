@@ -38,6 +38,9 @@ function setup() {
 
 function startSearch() {
     path = findPath(array_field);
+    for (i = 0; i < path.length; i++) {
+        fillRect(path[i].x + 1, path[i].y + 1, "green");
+    }
     console.log("path: ", path)
 }
 
@@ -113,7 +116,7 @@ function onClickStartpoint(e) {
     ctx_pg.moveTo(startX * (1200 / cols) - (1200 / cols), startY * (800 / rows));
     ctx_pg.lineTo(startX * (1200 / cols), startY * (800 / rows) - (800 / rows));
     ctx_pg.stroke();
-    array_field[startX - 1][startY - 1] = "s";
+    array_field[startY - 1][startX - 1] = "s";
 
     loopEnd_start = true;
     canvas_pg.removeEventListener("click", onClickStartpoint);
@@ -157,7 +160,8 @@ function onClickEndpoint(e) {
     ctx_pg.lineTo(endX * (1200 / cols), endY * (800 / rows) - (800 / rows));
     ctx_pg.stroke();
 
-    array_field[endX - 1][endY - 1] = "e";
+    console.log("x: ", endX, "y: ", endY);
+    array_field[endY - 1][endX - 1] = "e";
 
     loopEnd_end = true;
     canvas_pg.removeEventListener("click", onClickEndpoint);
@@ -189,7 +193,7 @@ function onClickPlaceBarriers(e) {
     ctx_pg.fillStyle = "black";
     ctx_pg.fillRect(place_barrierX * (1200 / cols) - (1200 / cols) + 1, place_barrierY * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
     ctx_pg.stroke();
-    array_field[place_barrierX - 1][place_barrierY - 1] = "b";
+    array_field[place_barrierY - 1][place_barrierX - 1] = "b";
 }
 
 function placeBarriersCounter() {
