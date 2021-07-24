@@ -1,3 +1,4 @@
+
 let canvas_pg = document.getElementById("canvasPlayground");
 let ctx_pg = canvas_pg.getContext("2d");
 let loopEnd_start = false;
@@ -24,19 +25,15 @@ setup()
 function setup() {
     grid()
 
-    for (i = 0; i < cols; i++) {
+    for (i = 0; i < rows; i++) {
         array_field.push(new Array());
-        for (j = 0; j < rows; j++) {
-            array_field[i].push(0);
+        for (j = 0; j < cols; j++) {
+            array_field[i].push("0");
         }  
     }
-}
-
-for (i = 0; i < cols; i++) {
-    array_field.push(new Array());
-    for (j = 0; j < rows; j++) {
-        array_field[i].push(0);
-    }  
+    console.log("cols: ", cols);
+    console.log("rows: ", rows);
+    console.log("field: ", array_field);
 }
 
 function setRects() {
@@ -45,14 +42,7 @@ function setRects() {
     cols = prompt("Number of columns: ", );
     rows = prompt("Number of rows: ", );
 
-    grid();
-
-    for (i = 0; i < cols; i++) {
-        array_field.push(new Array());
-        for (j = 0; j < rows; j++) {
-            array_field[i].push(0);
-        }  
-    }
+    setup();
 }
 
 function grid() {
@@ -113,8 +103,7 @@ function onClickStartpoint(e) {
     ctx_pg.moveTo(startX * (1200 / cols) - (1200 / cols), startY * (800 / rows));
     ctx_pg.lineTo(startX * (1200 / cols), startY * (800 / rows) - (800 / rows));
     ctx_pg.stroke();
-
-    console.log("mouseX: ", e.clientX, "mouseY: ", e.clientY);
+    array_field[startX - 1][startY - 1] = "s";
 
     loopEnd_start = true;
     canvas_pg.removeEventListener("click", onClickStartpoint);
@@ -158,6 +147,8 @@ function onClickEndpoint(e) {
     ctx_pg.lineTo(endX * (1200 / cols), endY * (800 / rows) - (800 / rows));
     ctx_pg.stroke();
 
+    array_field[endX - 1][endY - 1] = "e";
+
     loopEnd_end = true;
     canvas_pg.removeEventListener("click", onClickEndpoint);
     document.getElementById('end').classList.remove("buttonActiv");
@@ -188,6 +179,7 @@ function onClickPlaceBarriers(e) {
     ctx_pg.fillStyle = "black";
     ctx_pg.fillRect(place_barrierX * (1200 / cols) - (1200 / cols) + 1, place_barrierY * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
     ctx_pg.stroke();
+    array_field[place_barrierX - 1][place_barrierY - 1] = "b";
 }
 
 function placeBarriersCounter() {
@@ -233,6 +225,7 @@ function onClickDeleteBarriers(e) {
     ctx_pg.fillStyle = "white";
     ctx_pg.fillRect(delete_barrierX * (1200 / cols) - (1200 / cols) + 1, delete_barrierY * (800 / rows) - (800 / rows) + 1, 1200 / cols - 2, 800 / rows - 2);
     ctx_pg.stroke();
+    array_field[delete_barrierY - 1][delete_barrierX - 1] = "0";
 }
 
 function deleteBarriersCounter() {
@@ -252,6 +245,4 @@ function deleteBarriersEnd() {
 }
 
 /*
-
 */
-
