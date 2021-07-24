@@ -79,18 +79,3 @@ function findStart(field) {
     }
     console.log("No start found!");
 }
-
-const field = [
-    ["0", "s", "b", "0"],
-    ["0", "0", "b", "0"],
-    ["b", "b", "b", "0"],
-    ["0", "0", "0", "e"],
-]
-
-console.log(findPath(field));
-console.log(field);
-
-
-/*
-
-*/
