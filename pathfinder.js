@@ -29,7 +29,8 @@ function grid() {
     // VERTICAL
     for(i = screen_width / cols; i < screen_width; i+= (screen_width / cols)) {
         ctx.beginPath();
-        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "black";
         ctx.moveTo(i, 0);
         ctx.lineTo(i, screen_height);
         ctx.stroke();
@@ -55,11 +56,31 @@ function draw() {
                     ctx.beginPath();
                     ctx.strokeStyle = 'blue';
                     ctx.lineWidth = 3;
-                    ctx.moveTo(j * (1200 / cols) - (1200 / cols), i * (800 / rows) - (800 / rows));
-                    ctx.lineTo(j * (1200 / cols), i * (800 / rows));
-                    ctx.moveTo(j * (1200 / cols) - (1200 / cols), i * (800 / rows));
-                    ctx.lineTo(j * (1200 / cols), i * (800 / rows) - (800 / rows));
+                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows));
+                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows));
+                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
                     ctx.stroke();
+                    break;
+                case "e":
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'red';
+                    ctx.lineWidth = 3;
+                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows));
+                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows));
+                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.stroke();
+                    break;
+                case "b":
+                    fillRect(j, i, "black");
+                    break;
+                case "p":
+                    fillRect(j, i, "green");
+                    break;
+                case "x":
+                    fillRect(j, i, "blue");
+                    break;
             }
         }  
     }
@@ -67,9 +88,24 @@ function draw() {
 
     console.log(field);
 }
-function getCell(x, y, ) {
+function startSearch() {
+    path = findPath(field);
+    for (i = 0; i < path.length; i++) { 
+        field[path[i].x][path[i].y] = "p";
+    }
+    console.log("path: ", path)
+    draw();
+}
+
+function fillRect(x, y, color) {
+    ctx.beginPath;
+    ctx.fillStyle = color;
+    ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, screen_width / cols - 2, screen_height / rows - 2);
+    console.log("asjnod")
+}
+function getCell(x, y) {
     for(i = 0; i < screen_height; i+= (screen_height / rows)) {
-        if (y > i + 186 && y < i + (screen_height / rows) + 186) {
+        if (y > i + 157 && y < i + (screen_height / rows) + 157) {
             cellY = i / (screen_height / rows);
         }
     }
@@ -89,6 +125,13 @@ function setStartpoint() {
     }
 }
 function onClickStartpoint(e) {
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            if (field[i][j] == "s") {
+                field[i][j] = "0";
+            }
+        }  
+    }
     getCell(e.clientX, e.clientY);
     if (cellX != null && cellY != null) { 
         field[cellY][cellX] = "s";
@@ -119,6 +162,13 @@ function setEndpoint() {
     }
 }
 function onClickEndpoint(e) {
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            if (field[i][j] == "e") {
+                field[i][j] = "0";
+            }
+        }  
+    }
     getCell(e.clientX, e.clientY);
     if (cellX != null && cellY != null) { 
         field[cellY][cellX] = "e";
