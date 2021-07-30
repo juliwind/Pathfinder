@@ -6,17 +6,19 @@
     </head>
     
     <body>
-        <canvas id="canvasMenu" width="1200" height="150"> </canvas>
+        <canvas id="canvasMenu" width="1200" height="200"> </canvas>
         <canvas width="1200" height="20"> </canvas> <!-- PLACEHOLDER -->
         <canvas id="canvasPlayground" width="1200" height="800"> </canvas>
-        <button type="button" id="start" onclick="setStartpointTrue();setStartpoint();">Set Startpoint</button>
-        <button type="button" id="end" onclick="setEndpointTrue();setEndpoint();">Set Endpoint</button>
-        <button type="button" id="barriers" onclick="barriersCounter();">Edit barriers</button>
-        <button type="button" id="rects" onclick="setRects();">Set number of squares</button>
-        <button type="button" id="find" onclick="startSearch();">Find Path</button>
+        <button type="buttontop" id="start" class="buttons" onclick="setStartpointTrue();setStartpoint();">Set Startpoint</button>
+        <button type="buttontop" id="end" class="buttons" onclick="setEndpointTrue();setEndpoint();">Set Endpoint</button>
+        <button type="buttontop" id="barriers" class="buttons" onclick="barriersCounter();">Edit barriers</button>
+        <button type="buttontop" id="rects" class="buttons" onclick="setRects();">Set number of squares</button>
+        <button type="buttontop" id="find" class="buttons" onclick="startSearch();">Find Path</button>
 
         <script src="BFS_Algorithm.js" type="text/javascript"> </script>
         <script src="pathfinder.js" type="text/javascript"> </script>
+        <script src="aStar_Algorithm.js" type="text/javascript"> </script>
+
     </body>
     
     </html>

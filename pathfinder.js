@@ -217,3 +217,6 @@ function barriersEnd() {
     canvas.removeEventListener("mousedown", onClickBarriers);
     document.getElementById('barriers').classList.remove("buttonActiv");
 }
+/*
+TODO: Mit fabi hitbox kästen
+*/

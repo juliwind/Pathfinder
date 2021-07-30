@@ -53,7 +53,7 @@ function findPathFromStart(field, start) {
             return checkpoint.path;
         }
         let neighbors = getNeighbors(checkpoint.point, field);
-        console.log(checkpoint.point, neighbors);
+        //console.log(checkpoint.point, neighbors);
         for (i = 0; i < neighbors.length; i++){
             let new_path = checkpoint.path.slice();
             new_path.push(neighbors[i]);

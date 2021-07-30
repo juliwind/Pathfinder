@@ -6,45 +6,23 @@
   border: 3px solid black;
 }
 #start {
-  position: absolute;
-  top: 65px;
   left: 100px;
-  width: 120px;
-  height: 50px;
-  background-color: rgb(213, 241, 250);
-  border: 1px solid black;
 }
 #end {
-  position: absolute;
-  top: 65px;
   left: 300px;
-  width: 120px;
-  height: 50px;
-  background-color: rgb(213, 241, 250);
-  border: 1px solid black;
 }
 #barriers {
-  position: absolute;
-  top: 65px;
   left: 500px;
-  width: 120px;
-  height: 50px;
-  background-color: rgb(213, 241, 250);
-  border: 1px solid black;
 }
 #rects {
-  position: absolute;
-  top: 65px;
   left: 700px;
-  width: 120px;
-  height: 50px;
-  background-color: rgb(213, 241, 250);
-  border: 1px solid black;
 }
 #find {
-  position: absolute;
-  top: 65px;
   left: 900px;
+}
+.buttontop {
+  position: absolute;
+  top: 40px;
   width: 120px;
   height: 50px;
   background-color: rgb(213, 241, 250);
