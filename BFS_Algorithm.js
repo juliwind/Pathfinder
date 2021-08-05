@@ -62,7 +62,7 @@ function findPathFromStart(field, start) {
         }
         field[checkpoint.point.x][checkpoint.point.y] = "x";
     }
-    console.log("No path found!")
+    alert("No path found!");
 }
 
 function findPath(field) {
@@ -77,5 +77,5 @@ function findStart(field) {
             }
         }
     }
-    console.log("No start found!");
+    alert("No start found!");
 }
