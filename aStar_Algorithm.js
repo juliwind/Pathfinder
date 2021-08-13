@@ -67,22 +67,27 @@ function findPathWithAStar(field) {
 }
 
 function manhattenDistance(point1, point2) {
-    console.log(point1.x, point2.x);
-    let dist = (point1.x - point2.x) + (point1.y - point2.y);
+    let dist = (point2.x - point1.x) + (point2.y - point1.y);
+    console.log("1: ", point1, "2: ", point2, "dist: ", dist);
     return dist;
 }
 
-function heuristic(point, end) {
+function heuristic(checkpoint, end) {
     let h = manhattenDistance(point, end);
-    return h;
+    let g = manhattenDistance(point, testStart);
+    return h + g;
 }
 
+function queueSort(queue) {
+    return quickSort(queue, 0, queue.length - 1);
+}
 function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
-    const queue = [new Checkpoint(start, [start])];
+    console.log("end: ", end, "start: ", start)
+    let queue = [new Checkpoint(start, [start])];
     while (queue.length > 0) {
-        console.log(queue)
+        queue = queueSort(queue);
         let checkpoint = queue.shift();
         if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
             return checkpoint.path;
