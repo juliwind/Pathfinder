@@ -97,7 +97,7 @@ function startSearchBFS() {
 function startSearchAStar() {
     path = findPathWithAStar(field);
     for (i = 0; i < path.length; i++) { 
-        field[path[i].x][path[i].y] = "p";
+       field[path[i].x][path[i].y] = "p";
     }
     console.log("path: ", path)
     draw();
