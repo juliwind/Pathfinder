@@ -17,12 +17,23 @@
 #rects {
   left: 700px;
 }
-#find {
-  left: 900px;
+#findBFS {
+  left: 100px;
 }
-.buttons {
+#findAStar {
+  left: 300px;
+}
+.buttonsTop {
   position: absolute;
   top: 40px;
+  width: 120px;
+  height: 50px;
+  background-color: rgb(213, 241, 250);
+  border: 1px solid black;
+}
+.buttonsLow {
+  position: absolute;
+  top: 130px;
   width: 120px;
   height: 50px;
   background-color: rgb(213, 241, 250);

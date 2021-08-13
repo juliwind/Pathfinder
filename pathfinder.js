@@ -85,11 +85,17 @@ function draw() {
         }  
     }
     //switch 
-
-    console.log(field);
 }
-function startSearch() {
-    path = findPath(field);
+function startSearchBFS() {
+    path = findPathWithBFS(field);
+    for (i = 0; i < path.length; i++) { 
+        field[path[i].x][path[i].y] = "p";
+    }
+    console.log("path: ", path)
+    draw();
+}
+function startSearchAStar() {
+    path = findPathWithAStar(field);
     for (i = 0; i < path.length; i++) { 
         field[path[i].x][path[i].y] = "p";
     }

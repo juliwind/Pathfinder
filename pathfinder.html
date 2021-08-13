@@ -9,12 +9,15 @@
         <canvas id="canvasMenu" width="1200" height="200"> </canvas>
         <canvas width="1200" height="20"> </canvas> <!-- PLACEHOLDER -->
         <canvas id="canvasPlayground" width="1200" height="800"> </canvas>
-        <button type="buttontop" id="start" class="buttons" onclick="setStartpointTrue();setStartpoint();">Set Startpoint</button>
-        <button type="buttontop" id="end" class="buttons" onclick="setEndpointTrue();setEndpoint();">Set Endpoint</button>
-        <button type="buttontop" id="barriers" class="buttons" onclick="barriersCounter();">Edit barriers</button>
-        <button type="buttontop" id="rects" class="buttons" onclick="setRects();">Set number of squares</button>
-        <button type="buttontop" id="find" class="buttons" onclick="startSearch();">Find Path</button>
+        <button type="buttontop" id="start" class="buttonsTop" onclick="setStartpointTrue();setStartpoint();">Set Startpoint</button>
+        <button type="buttontop" id="end" class="buttonsTop" onclick="setEndpointTrue();setEndpoint();">Set Endpoint</button>
+        <button type="buttontop" id="barriers" class="buttonsTop" onclick="barriersCounter();">Edit barriers</button>
+        <button type="buttontop" id="rects" class="buttonsTop" onclick="setRects();">Set number of squares</button>
+        <button type="buttonlow" id="findBFS" class="buttonsLow" onclick="startSearchBFS();">Find Path with BFS!</button>
+        <button type="buttonlow" id="findAStar" class="buttonsLow" onclick="startSearchAStar();">Find Path with AStar!</button>
 
+        <script src="quickSort_withHeuristic.js" type="text/javascript"> </script>
+        <script src="functions.js" type="text/javascript"> </script>
         <script src="BFS_Algorithm.js" type="text/javascript"> </script>
         <script src="aStar_Algorithm.js" type="text/javascript"> </script>
         <script src="pathfinder.js" type="text/javascript"> </script>
