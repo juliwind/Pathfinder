@@ -8,26 +8,26 @@ class hPoint {
 function aStarGetNeighbors(point, field, end) {
     const neighbors = [];
     let neighbor_north_point = new Point(point.x, point.y - 1);
-    let h = heuristic(neighbor_north_point, end);
-    let neighbor_north = new hPoint(point.x, point.y - 1, h);
+    let h_n = heuristic(neighbor_north_point, end);
+    let neighbor_north = new hPoint(point.x, point.y - 1, h_n);
     if (neighborValid(neighbor_north, field)) {
         neighbors.push(neighbor_north);
     }
     let neighbor_east_point = new Point(point.x + 1, point.y);
-    let h = heuristic(neighbor_east_point, end)
-    let neighbor_east = new hPoint(point.x + 1, point.y, h);
+    let h_e = heuristic(neighbor_east_point, end)
+    let neighbor_east = new hPoint(point.x + 1, point.y, h_e);
     if (neighborValid(neighbor_east, field)) {
         neighbors.push(neighbor_east);
     }
     let neighbor_south_point = new Point(point.x, point.y + 1);
-    let h = heuristic(neighbor_south_point, end);
-    let neighbor_south = new hPoint(point.x, point.y + 1, h);
+    let h_s = heuristic(neighbor_south_point, end);
+    let neighbor_south = new hPoint(point.x, point.y + 1, h_s);
     if (neighborValid(neighbor_south, field)) {
         neighbors.push(neighbor_south);
     }
     let neighbor_west_point = new Point(point.x - 1, point.y);
-    let h = heuristic(neighbor_west_point, h)
-    let neighbor_west = new hPoint(point.x - 1, point.y, h);
+    let h_w = heuristic(neighbor_west_point, end)
+    let neighbor_west = new hPoint(point.x - 1, point.y, h_w);
     if (neighborValid(neighbor_west, field)) {
         neighbors.push(neighbor_west);
     }
@@ -45,7 +45,7 @@ function findEnd(field) {
     alert("No end found!")
 }
 
-function aStarFindStartAndEnd(field) {
+function findStartAndEnd(field) {
     let end = findEnd(field);
     return_array = new Array(end)
     for (i = 0; i < field.length; i++) {
@@ -67,6 +67,7 @@ function findPathWithAStar(field) {
 }
 
 function manhattenDistance(point1, point2) {
+    console.log(point1.x, point2.x);
     let dist = (point1.x - point2.x) + (point1.y - point2.y);
     return dist;
 }
@@ -86,7 +87,7 @@ function aStarfindPathFromStart(field, points) {
         if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
             return checkpoint.path;
         }
-        let neighbors = aStarGetNeighbors(checkpoint.point, field);
+        let neighbors = aStarGetNeighbors(checkpoint.point, field, end);
         for (i = 0; i < neighbors.length; i++){
             let new_path = checkpoint.path.slice();
             new_path.push(neighbors[i]);
