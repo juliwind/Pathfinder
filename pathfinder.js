@@ -107,7 +107,6 @@ function fillRect(x, y, color) {
     ctx.beginPath;
     ctx.fillStyle = color;
     ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, screen_width / cols - 2, screen_height / rows - 2);
-    console.log("asjnod")
 }
 function getCell(x, y) {
     for(i = 0; i < screen_height; i+= (screen_height / rows)) {

@@ -5,7 +5,7 @@ class hPoint {
         this.h = h;
     }
 }
-function aStarGetNeighbors(point, field, end) {
+function aStarGetNeighbors(point, field) {
     const neighbors = [];
     let neighbor_north = new Point(point.x, point.y - 1);
     if (neighborValid(neighbor_north, field)) {
@@ -30,7 +30,7 @@ function findEnd(field) {
     for (i = 0; i < field.length; i++) {
         for (j = 0; j < field[0].length; j++) {
             if (field[i][j] == "e") {
-                return new hPoint(i, j, 0);
+                return new hPoint(j, i, 0);
             }
         }
     }
@@ -57,14 +57,16 @@ function findPathWithAStar(field) {
 }
 
 function manhattenDistance(point_1, point_2) {
-    let dist = (point_2.x - point_1.x) + (point_2.y - point_1.y)
+    let dist = (point_2.x - point_1.x) + (point_2.y - point_1.y);
+    console.log("1x", point_1.x, "2x", point_2.x, "1y", point_1.y, "2y", point_2.y, "dist", dist);
     return dist;
 }
 
 function newCheckpoint(point, path, end) {
-    let f = manhattenDistance(point, end) + path.length;
-    point = new hPoint(point.x, point.y, f);
-    return new Checkpoint(point, path)
+    let h = manhattenDistance(point, end) //+ path.length - 1;
+    point = new hPoint(point.x, point.y, h);
+    console.log(point)
+    return new Checkpoint(point, path);
 }
 
 function queueSort(queue) {
@@ -74,19 +76,29 @@ function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
     let queue = [new Checkpoint(start, [start])];
+    let i = 0;
     while (queue.length > 0) {
         queue = queueSort(queue);
-        //console.log(queue);
+        i++
+        if (i > 4) {
+            console.log(queue);
+            return checkpoint.path;
+        }
         let checkpoint = queue.shift();
         if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
             return checkpoint.path;
         }
-        let neighbors = aStarGetNeighbors(checkpoint.point, field, end);
-        for (i = 0; i < neighbors.length; i++){
-            let new_path = checkpoint.path.slice();
-            new_path.push(neighbors[i]);
-            let new_checkpoint = newCheckpoint(neighbors[i], new_path, end);
-            queue.push(new_checkpoint);
+        if (field[checkpoint.point.x][checkpoint.point.y] != "x") {
+            let neighbors = aStarGetNeighbors(checkpoint.point, field, end);
+            for (i = 0; i < neighbors.length; i++){
+                let new_path = checkpoint.path.slice();
+                new_path.push(neighbors[i]);
+                console.log("START")
+                let new_checkpoint = newCheckpoint(neighbors[i], new_path, end);
+                console.log("checkpoint at end", new_checkpoint)
+                console.log("END")
+                queue.push(new_checkpoint);
+            }
         }
         field[checkpoint.point.x][checkpoint.point.y] = "x";
     }
