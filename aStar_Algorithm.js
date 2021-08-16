@@ -80,10 +80,10 @@ function aStarfindPathFromStart(field, points) {
     while (queue.length > 0) {
         queue = queueSort(queue);
         i++
-        if (i > 4) {
+        /*if (i > 4) {
             console.log(queue);
             return checkpoint.path;
-        }
+        }*/
         let checkpoint = queue.shift();
         if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
             return checkpoint.path;
@@ -93,10 +93,12 @@ function aStarfindPathFromStart(field, points) {
             for (i = 0; i < neighbors.length; i++){
                 let new_path = checkpoint.path.slice();
                 new_path.push(neighbors[i]);
-                console.log("START")
+                console.log("START");
+                //console.log("this neighbor 1", neighbors[i]);
                 let new_checkpoint = newCheckpoint(neighbors[i], new_path, end);
-                console.log("checkpoint at end", new_checkpoint)
-                console.log("END")
+                //console.log("this neighbor 2", neighbors[i]);
+                console.log("checkpoint at end", new_checkpoint);
+                console.log("END");
                 queue.push(new_checkpoint);
             }
         }
