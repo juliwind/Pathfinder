@@ -1,18 +1,24 @@
 
 function quicksortChange(array, left, right) {
-    let pivot = array[Math.floor((right + left) / 2)].point.h;
+    let pivot = array[Math.floor((right + left) / 2)].h;
+
     while (left <= right) {
-        while (array[left].point.h < pivot) {
+        while (array[left].h < pivot) {
             left++;
         }
-        while (array[right].point.h > pivot) {
+        while (array[right].h > pivot) {
             right--;
         }
         if (left <= right) {
-            let a = array[left].point.h;
-            let b = array[right].point.h;
-            array[left].point.h = b;
-            array[right].point.h = a;
+            let tmp = array[left];
+            array[left] = array[right];
+            array[right] = tmp;
+            /*
+            let a = array[left].h;
+            let b = array[right].h;
+            array[left].h = b;
+            array[right].h = a;
+            */
             left++;
             right--;
         }

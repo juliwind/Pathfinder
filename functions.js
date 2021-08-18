@@ -4,12 +4,16 @@ class Point {
         this.y = y;
     }
 }
-class Checkpoint {
-    constructor(point, path) {
-        this.point = point;
+
+class Pathpoint {
+    constructor(x, y, h, path) {
+        this.x = x;
+        this.y = y;
+        this.h = h;
         this.path = path;
     } 
 }
+
 function getNeighbors(point, field) {
     const neighbors = [];
     let neighbor_north = new Point(point.x, point.y - 1);
@@ -31,9 +35,10 @@ function getNeighbors(point, field) {
     return neighbors;
 }
 function neighborValid(point, field) {
-    if (point.x >= 0 && point.x < field.length
-            && point.y >= 0 && point.y < field[0].length
-            && (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+    if (point.x >= 0 && point.x < field.length &&
+        point.y >= 0 && point.y < field[0].length &&
+        (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+
         return true;
     }
     else {

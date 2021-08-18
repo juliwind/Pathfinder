@@ -49,6 +49,7 @@ function grid() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     grid();
+
     for (i = 0; i < rows; i++) {
         for (j = 0; j < cols; j++) {
             switch (field[i][j]) {
@@ -73,13 +74,13 @@ function draw() {
                     ctx.stroke();
                     break;
                 case "b":
-                    fillRect(j, i, "black");
+                    fillRect(i, j, "black");
                     break;
                 case "p":
-                    fillRect(j, i, "green");
+                    fillRect(i, j, "green");
                     break;
                 case "x":
-                    fillRect(j, i, "blue");
+                    fillRect(i, j, "blue");
                     break;
             }
         }  
