@@ -98,13 +98,13 @@ function startSearchBFS() {
 function startSearchAStar() {
     path = findPathWithAStar(field);
     for (i = 0; i < path.length; i++) { 
-       field[path[i].x][path[i].y] = "p";
+       field[path[i].y][path[i].x] = "p";
     }
     console.log("path: ", path)
     draw();
 }
 
-function fillRect(x, y, color) {
+function fillRect(y, x, color) {
     ctx.beginPath;
     ctx.fillStyle = color;
     ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, screen_width / cols - 2, screen_height / rows - 2);
@@ -203,7 +203,7 @@ function onClickBarriers(e) {
         if (field[cellY][cellX] == "0") {
             field[cellY][cellX] = "b";
         }
-        else if (field[cellY][cellX] == "b") {
+        else {
             field[cellY][cellX] = "0";
         }
         draw();

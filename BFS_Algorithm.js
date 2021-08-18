@@ -1,7 +1,7 @@
 function BFSfindPathFromStart(field, start) {
     const queue = [new Checkpoint(start, [start])];
     while (queue.length > 0) {
-        console.log(queue)
+        console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
         let checkpoint = queue.shift();
         if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
             return checkpoint.path;
@@ -28,7 +28,7 @@ function findStart(field) {
     for (i = 0; i < field.length; i++) {
         for (j = 0; j < field[0].length; j++) {
             if (field[i][j] == "s") {
-                return new Point(i, j);
+                return new Point(j, i);
             }
         }
     }

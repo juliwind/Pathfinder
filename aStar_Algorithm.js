@@ -87,7 +87,7 @@ function manhattenDistance(point_1, point_2) {
 }
 
 function newCheckpoint(point, path, end) {
-    let heuristic = manhattenDistance(point, end);
+    let heuristic = manhattenDistance(point, end)// + path.length - 1;
     return new AStarCheckpoint(point.x, point.y, heuristic, path);
 }
 
@@ -98,17 +98,17 @@ function queueSort(queue) {
 function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
-    console.log("START:", start, "END:", end);
+    //console.log("START:", start, "END:", end);
     let queue = [new AStarCheckpoint(start.x, start.y, Number.POSITIVE_INFINITY, [start])];
 
     while (queue.length > 0) {
-        console.log("\n\n\n");
-        console.log("BEFORE SORT:", JSON.parse(JSON.stringify(queue)));
+        //console.log("\n\n\n");
+        //console.log("BEFORE SORT:", JSON.parse(JSON.stringify(field)));
         queue = queueSort(queue);
-        console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
+        //console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
 
         let curr_point = queue.shift();
-        console.log("CURR POINT:", curr_point);
+        //console.log("CURR POINT:", curr_point);
 
         /*
         if (field[curr_point.x][curr_point.y] == "e")  {
@@ -131,7 +131,7 @@ function aStarfindPathFromStart(field, points) {
             }
         }
 
-        field[curr_point.x][curr_point.y] = "x";
+        field[curr_point.y][curr_point.x] = "x";
     }
     alert("No path found!");
 }
