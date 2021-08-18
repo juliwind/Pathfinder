@@ -1,33 +1,60 @@
-function aStarGetNeighbors(point, field) {
+class AStarCheckpoint {
+    constructor(x, y, h, path) {
+        this.x = x;
+        this.y = y;
+        this.h = h;
+        this.path = path;
+    } 
+}
+class AStarPoint {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+function AStarGetNeighbors(point, field) {
     const neighbors = [];
 
-    let neighbor_north = new Point(point.x, point.y - 1);
-    if (neighborValid(neighbor_north, field)) {
+    let neighbor_north = new AStarPoint(point.x, point.y - 1);
+    if (AStarNeighborValid(neighbor_north, field)) {
         neighbors.push(neighbor_north);
     }
 
-    let neighbor_east = new Point(point.x + 1, point.y);
-    if (neighborValid(neighbor_east, field)) {
+    let neighbor_east = new AStarPoint(point.x + 1, point.y);
+    if (AStarNeighborValid(neighbor_east, field)) {
         neighbors.push(neighbor_east);
     }
 
-    let neighbor_south = new Point(point.x, point.y + 1);
-    if (neighborValid(neighbor_south, field)) {
+    let neighbor_south = new AStarPoint(point.x, point.y + 1);
+    if (AStarNeighborValid(neighbor_south, field)) {
         neighbors.push(neighbor_south);
     }
 
-    let neighbor_west = new Point(point.x - 1, point.y);
-    if (neighborValid(neighbor_west, field)) {
+    let neighbor_west = new AStarPoint(point.x - 1, point.y);
+    if (AStarNeighborValid(neighbor_west, field)) {
         neighbors.push(neighbor_west);
     }
     return neighbors;
+}
+
+function AStarNeighborValid(point, field) {
+    if (point.x >= 0 && point.x < field.length &&
+        point.y >= 0 && point.y < field[0].length &&
+        (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 function findEnd(field) {
     for (i = 0; i < field.length; i++) {
         for (j = 0; j < field[0].length; j++) {
             if (field[i][j] == "e") {
-                return new Point(j, i);
+                return new AStarPoint(j, i);
             }
         }
     }
@@ -40,7 +67,7 @@ function findStartAndEnd(field) {
     for (i = 0; i < field.length; i++) {
         for (j = 0; j < field[0].length; j++) {
             if (field[i][j] == "s") {
-                let start = new Point(j, i);
+                let start = new AStarPoint(j, i);
                 return_array.push(start);
                 return return_array;
             }
@@ -61,7 +88,7 @@ function manhattenDistance(point_1, point_2) {
 
 function newCheckpoint(point, path, end) {
     let heuristic = manhattenDistance(point, end);
-    return new Pathpoint(point.x, point.y, heuristic, path);
+    return new AStarCheckpoint(point.x, point.y, heuristic, path);
 }
 
 function queueSort(queue) {
@@ -72,7 +99,7 @@ function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
     console.log("START:", start, "END:", end);
-    let queue = [new Pathpoint(start.x, start.y, Number.POSITIVE_INFINITY, [start])];
+    let queue = [new AStarCheckpoint(start.x, start.y, Number.POSITIVE_INFINITY, [start])];
 
     while (queue.length > 0) {
         console.log("\n\n\n");
@@ -93,7 +120,7 @@ function aStarfindPathFromStart(field, points) {
         }
 
         if (field[curr_point.x][curr_point.y] != "x") {
-            let neighbors = aStarGetNeighbors(curr_point, field);
+            let neighbors = AStarGetNeighbors(curr_point, field);
 
             for (let i = 0; i < neighbors.length; i++) {
                 let new_path = curr_point.path.slice();

@@ -1,19 +1,3 @@
-class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
-class Pathpoint {
-    constructor(x, y, h, path) {
-        this.x = x;
-        this.y = y;
-        this.h = h;
-        this.path = path;
-    } 
-}
-
 function getNeighbors(point, field) {
     const neighbors = [];
     let neighbor_north = new Point(point.x, point.y - 1);
