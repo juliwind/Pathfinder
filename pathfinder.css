@@ -2,27 +2,43 @@
   border: 3px solid black;
   background-color: rgb(213, 241, 250);
 }
+
 #canvasPlayground {
   border: 3px solid black;
 }
+
 #start {
   left: 100px;
 }
+
 #end {
   left: 300px;
 }
+
 #barriers {
   left: 500px;
 }
+
 #rects {
   left: 700px;
 }
+
+#maze {
+  left: 900px;
+}
+
 #findBFS {
   left: 100px;
 }
+
 #findAStar {
   left: 300px;
 }
+
+#clear {
+  left: 900px;
+}
+
 .buttonsTop {
   position: absolute;
   top: 40px;
@@ -31,6 +47,7 @@
   background-color: rgb(213, 241, 250);
   border: 1px solid black;
 }
+
 .buttonsLow {
   position: absolute;
   top: 130px;
@@ -39,6 +56,7 @@
   background-color: rgb(213, 241, 250);
   border: 1px solid black;
 }
+
 .buttonActiv {
   background: #e5e5e5;
   -webkit-box-shadow: inset 0px 0px 7px #686868;

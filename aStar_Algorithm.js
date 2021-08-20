@@ -98,30 +98,18 @@ function queueSort(queue) {
 function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
-    //console.log("START:", start, "END:", end);
     let queue = [new AStarCheckpoint(start.x, start.y, Number.POSITIVE_INFINITY, [start])];
 
     while (queue.length > 0) {
-        //console.log("\n\n\n");
         //console.log("BEFORE SORT:", JSON.parse(JSON.stringify(field)));
         queue = queueSort(queue);
         //console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
-
         let curr_point = queue.shift();
-        //console.log("CURR POINT:", curr_point);
-
-        /*
-        if (field[curr_point.x][curr_point.y] == "e")  {
-            return curr_point.path;
-        }*/
-
-        if (curr_point.x == end.x && curr_point.y == end.y) {
+        if (field[curr_point.x][curr_point.y] == "e") {
             return curr_point.path;
         }
-
+        let neighbors = AStarGetNeighbors(curr_point, field);
         if (field[curr_point.x][curr_point.y] != "x") {
-            let neighbors = AStarGetNeighbors(curr_point, field);
-
             for (let i = 0; i < neighbors.length; i++) {
                 let new_path = curr_point.path.slice();
                 new_path.push(neighbors[i]);

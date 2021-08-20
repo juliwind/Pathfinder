@@ -46,6 +46,15 @@ function grid() {
     }
 }
 
+function clearField() {
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            field[i][j] = "0"
+        }
+    }
+    draw();
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     grid();
@@ -109,6 +118,7 @@ function fillRect(y, x, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, screen_width / cols - 2, screen_height / rows - 2);
 }
+
 function getCell(x, y) {
     for(i = 0; i < screen_height; i+= (screen_height / rows)) {
         if (y > i + 157 && y < i + (screen_height / rows) + 157) {
@@ -120,6 +130,10 @@ function getCell(x, y) {
             cellX = j / (screen_width / cols);
         }
     }
+}
+
+function generateMaze() {
+
 }
 
 //STARTPOINT
@@ -222,6 +236,11 @@ function barriersCounter() {
 function barriersEnd() {
     canvas.removeEventListener("mousedown", onClickBarriers);
     document.getElementById('barriers').classList.remove("buttonActiv");
+}
+
+function generateMaze() {
+    field = mazeStart(field);
+    draw();
 }
 /*
 TODO: Mit fabi hitbox kästen
