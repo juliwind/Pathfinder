@@ -39,9 +39,9 @@ function AStarGetNeighbors(point, field) {
 }
 
 function AStarNeighborValid(point, field) {
-    if (point.x >= 0 && point.x < field.length &&
-        point.y >= 0 && point.y < field[0].length &&
-        (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+    if (point.y >= 0 && point.y < field.length &&
+        point.x >= 0 && point.x < field[0].length &&
+        (field[point.y][point.x] == "0" || field[point.y][point.x] == "e")) {
 
         return true;
     }
@@ -49,6 +49,7 @@ function AStarNeighborValid(point, field) {
         return false;
     }
 }
+
 
 function findEnd(field) {
     for (i = 0; i < field.length; i++) {
@@ -77,8 +78,14 @@ function findStartAndEnd(field) {
 }
 
 function findPathWithAStar(field) {
-    return aStarfindPathFromStart(field, findStartAndEnd(field));
+    const points = findStartAndEnd(field);
+    if (!points || points.length < 2) {
+        alert("Start oder Ende nicht gefunden!");
+        return [];
+    }
+    return aStarfindPathFromStart(field, points);
 }
+
 
 function manhattenDistance(point_1, point_2) {
     let dist = Math.abs(point_2.x - point_1.x) + Math.abs(point_2.y - point_1.y);
@@ -95,21 +102,20 @@ function queueSort(queue) {
     return quickSort(queue, 0, queue.length - 1);
 }
 
+
 function aStarfindPathFromStart(field, points) {
     let end = points[0];
     let start = points[1];
     let queue = [new AStarCheckpoint(start.x, start.y, Number.POSITIVE_INFINITY, [start])];
 
     while (queue.length > 0) {
-        //console.log("BEFORE SORT:", JSON.parse(JSON.stringify(field)));
         queue = queueSort(queue);
-        //console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
         let curr_point = queue.shift();
-        if (field[curr_point.x][curr_point.y] == "e") {
+        if (field[curr_point.y][curr_point.x] == "e") {
             return curr_point.path;
         }
         let neighbors = AStarGetNeighbors(curr_point, field);
-        if (field[curr_point.x][curr_point.y] != "x") {
+        if (field[curr_point.y][curr_point.x] != "x") {
             for (let i = 0; i < neighbors.length; i++) {
                 let new_path = curr_point.path.slice();
                 new_path.push(neighbors[i]);

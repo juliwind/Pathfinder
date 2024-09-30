@@ -18,10 +18,11 @@ function getNeighbors(point, field) {
     }
     return neighbors;
 }
+
 function neighborValid(point, field) {
-    if (point.x >= 0 && point.x < field.length &&
-        point.y >= 0 && point.y < field[0].length &&
-        (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+    if (point.y >= 0 && point.y < field.length &&
+        point.x >= 0 && point.x < field[0].length &&
+        (field[point.y][point.x] == "0" || field[point.y][point.x] == "e")) {
 
         return true;
     }

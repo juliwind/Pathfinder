@@ -1,24 +1,26 @@
+"use strict";
+
 let canvas = document.getElementById("canvasPlayground");
 let ctx = canvas.getContext("2d");
 let cols = 15;
 let rows = 10;
-let field = new Array();
+let field = [];
 let screen_height = canvas.height;
 let screen_width = canvas.width;
 let cellX = null;
 let cellY = null;
-let loopEnd_start = false;
-let loopEnd_end = false;
-let loopEnd_barriers = false;
 let barrier_counter = 0;
 let barrier_loop = null;
+let settingStartpoint = false;
+let settingEndpoint = false;
 
 setup();
 
 function setup() {
-    for (i = 0; i < rows; i++) {
-        field.push(new Array());
-        for (j = 0; j < cols; j++) {
+    field = [];
+    for (let i = 0; i < rows; i++) {
+        field.push([]);
+        for (let j = 0; j < cols; j++) {
             field[i].push("0");
         }  
     }
@@ -26,8 +28,7 @@ function setup() {
 }
 
 function grid() {
-    // VERTICAL
-    for(i = screen_width / cols; i < screen_width; i+= (screen_width / cols)) {
+    for(let i = screen_width / cols; i < screen_width; i += (screen_width / cols)) {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = "black";
@@ -35,9 +36,8 @@ function grid() {
         ctx.lineTo(i, screen_height);
         ctx.stroke();
     }
-    
-    // HORIZONTAL
-    for(i = screen_height / rows; i < screen_height; i+= (screen_height / rows)) {
+
+    for(let i = screen_height / rows; i < screen_height; i += (screen_height / rows)) {
         ctx.beginPath();
         ctx.strokeStyle = 'black';
         ctx.moveTo(0, i);
@@ -47,9 +47,9 @@ function grid() {
 }
 
 function clearField() {
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
-            field[i][j] = "0"
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            field[i][j] = "0";
         }
     }
     draw();
@@ -59,27 +59,27 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     grid();
 
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
             switch (field[i][j]) {
                 case "s":
                     ctx.beginPath();
                     ctx.strokeStyle = 'blue';
                     ctx.lineWidth = 3;
-                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.moveTo(j * (screen_width / cols), i * (screen_height / rows));
                     ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows));
-                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows));
-                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.moveTo((j + 1) * (screen_width / cols), i * (screen_height / rows));
+                    ctx.lineTo(j * (screen_width / cols), (i + 1) * (screen_height / rows));
                     ctx.stroke();
                     break;
                 case "e":
                     ctx.beginPath();
                     ctx.strokeStyle = 'red';
                     ctx.lineWidth = 3;
-                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.moveTo(j * (screen_width / cols), i * (screen_height / rows));
                     ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows));
-                    ctx.moveTo((j + 1) * (screen_width / cols) - (screen_width / cols), (i + 1) * (screen_height / rows));
-                    ctx.lineTo((j + 1) * (screen_width / cols), (i + 1) * (screen_height / rows) - (screen_height / rows));
+                    ctx.moveTo((j + 1) * (screen_width / cols), i * (screen_height / rows));
+                    ctx.lineTo(j * (screen_width / cols), (i + 1) * (screen_height / rows));
                     ctx.stroke();
                     break;
                 case "b":
@@ -94,126 +94,136 @@ function draw() {
             }
         }  
     }
-    //switch 
 }
+
 function startSearchBFS() {
-    path = findPathWithBFS(field);
-    for (i = 0; i < path.length; i++) { 
-        field[path[i].x][path[i].y] = "p";
+    const path = findPathWithBFS(field);
+    if (path) {
+        for (let i = 0; i < path.length; i++) { 
+            field[path[i].y][path[i].x] = "p";
+        }
+        console.log("path: ", path);
+        draw();
     }
-    console.log("path: ", path)
-    draw();
 }
+
 function startSearchAStar() {
-    path = findPathWithAStar(field);
-    for (i = 0; i < path.length; i++) { 
-       field[path[i].y][path[i].x] = "p";
+    const path = findPathWithAStar(field);
+    if (path) {
+        for (let i = 0; i < path.length; i++) { 
+            field[path[i].y][path[i].x] = "p";
+        }
+        console.log("path: ", path);
+        draw();
     }
-    console.log("path: ", path)
-    draw();
 }
 
 function fillRect(y, x, color) {
-    ctx.beginPath;
+    ctx.beginPath();
     ctx.fillStyle = color;
-    ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, screen_width / cols - 2, screen_height / rows - 2);
+    ctx.fillRect(x * (screen_width / cols) + 1, y * (screen_height / rows) + 1, (screen_width / cols) - 2, (screen_height / rows) - 2);
 }
 
 function getCell(x, y) {
-    for(i = 0; i < screen_height; i+= (screen_height / rows)) {
-        if (y > i + 157 && y < i + (screen_height / rows) + 157) {
-            cellY = i / (screen_height / rows);
-        }
-    }
-    for (j = 0; j < screen_width; j+= (screen_width / cols)) {
-        if (x > j + 10 && x < j + (screen_width / cols) + 10) {
-            cellX = j / (screen_width / cols);
-        }
+    const canvasRect = canvas.getBoundingClientRect();
+    const relativeX = x - canvasRect.left;
+    const relativeY = y - canvasRect.top;
+
+    cellX = Math.floor(relativeX / (screen_width / cols));
+    cellY = Math.floor(relativeY / (screen_height / rows));
+
+    if (cellX < 0 || cellX >= cols || cellY < 0 || cellY >= rows) {
+        cellX = null;
+        cellY = null;
     }
 }
 
-function generateMaze() {
-
-}
-
-//STARTPOINT
 function setStartpoint() {
-    if (!loopEnd_start) {
+    if (!settingStartpoint) {
+        settingStartpoint = true;
         document.getElementById('start').classList.add("buttonActiv");
         canvas.addEventListener("click", onClickStartpoint);
-        setTimeout(setStartpoint);
     }
 }
+
 function onClickStartpoint(e) {
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
+    console.log("onClickStartpoint triggered");
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
             if (field[i][j] == "s") {
                 field[i][j] = "0";
             }
-        }  
-    }
-    getCell(e.clientX, e.clientY);
-    if (cellX != null && cellY != null) { 
-        field[cellY][cellX] = "s";
-        draw();
+        }
     }
 
-    loopEnd_start = true;
+    getCell(e.clientX, e.clientY);
+    if (cellX !== null && cellY !== null) { 
+        field[cellY][cellX] = "s";
+        draw();
+        console.log(`Startpunkt gesetzt bei y: ${cellY}, x: ${cellX}`);
+        console.log("Aktuelles Field Array:", field);
+    }
+
+    settingStartpoint = false;
     canvas.removeEventListener("click", onClickStartpoint);
     document.getElementById('start').classList.remove("buttonActiv");
 }
-function setStartpointTrue() {
-    loopEnd_start = false;
-}
 
-
-function setRects() {
-    field = new Array();
-    cols = prompt("Number of columns: ", );
-    rows = prompt("Number of rows: ", );
-    setup();
-}
-//ENDPOINT
 function setEndpoint() {
-    if (!loopEnd_end) {
+    if (!settingEndpoint) {
+        settingEndpoint = true;
         document.getElementById('end').classList.add("buttonActiv");
         canvas.addEventListener("click", onClickEndpoint);
-        setTimeout(setEndpoint);
     }
 }
+
 function onClickEndpoint(e) {
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
+    console.log("onClickEndpoint triggered");
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
             if (field[i][j] == "e") {
                 field[i][j] = "0";
             }
-        }  
-    }
-    getCell(e.clientX, e.clientY);
-    if (cellX != null && cellY != null) { 
-        field[cellY][cellX] = "e";
-        draw();
+        }
     }
 
-    loopEnd_end = true;
+    getCell(e.clientX, e.clientY);
+    if (cellX !== null && cellY !== null) { 
+        field[cellY][cellX] = "e";
+        draw();
+        console.log(`Endpunkt gesetzt bei y: ${cellY}, x: ${cellX}`);
+        console.log("Aktuelles Field Array:", field);
+    }
+
+    settingEndpoint = false;
     canvas.removeEventListener("click", onClickEndpoint);
     document.getElementById('end').classList.remove("buttonActiv");
 }
-function setEndpointTrue() {
-    loopEnd_end = false;
+
+function setRects() {
+    field = [];
+    cols = parseInt(prompt("Number of columns: ", "15"));
+    rows = parseInt(prompt("Number of rows: ", "10"));
+    if (isNaN(cols) || isNaN(rows) || cols <= 0 || rows <= 0) {
+        alert("Bitte geben Sie gültige Zahlen für Spalten und Reihen ein.");
+        return;
+    }
+    setup();
 }
 
-//BARRIERS
 function barriers() {
-    if (!loopEnd_barriers) {
+    if (!settingEndpoint) {
         document.getElementById('barriers').classList.add("buttonActiv");
         canvas.addEventListener("mousedown", onClickBarriers);
-        barrier_loop = setTimeout(barriers);
+        barrier_loop = setTimeout(barriers, 100);
     }
 }
+
 function onClickBarriers(e) {
     getCell(e.clientX, e.clientY);
-    if (cellX != null && cellY != null) { 
+    if (cellX !== null && cellY !== null) { 
         if (field[cellY][cellX] == "0") {
             field[cellY][cellX] = "b";
         }
@@ -223,6 +233,7 @@ function onClickBarriers(e) {
         draw();
     }
 }
+
 function barriersCounter() {
     barrier_counter++;
     if (barrier_counter % 2 == 0) {
@@ -233,6 +244,7 @@ function barriersCounter() {
         barriers();
     }
 }
+
 function barriersEnd() {
     canvas.removeEventListener("mousedown", onClickBarriers);
     document.getElementById('barriers').classList.remove("buttonActiv");
@@ -242,6 +254,3 @@ function generateMaze() {
     field = mazeStart(field);
     draw();
 }
-/*
-TODO: Mit fabi hitbox kästen
-*/

@@ -1,13 +1,4 @@
 function mazeStart(field) {
-    /*let field = [];
-    let y = canvas.height / final_resolution;
-    if (y % 2 == 1) {
-        y++;
-    }
-    let x = canvas.width / final_resolution;
-    if (x % 2 == 1) {
-        x++
-    }*/
     let horizontal = isHorizontal(field.length, field[0].length);
 
     boarder(field)

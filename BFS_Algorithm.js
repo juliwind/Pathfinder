@@ -1,21 +1,20 @@
 function BFSfindPathFromStart(field, start) {
     const queue = [new Checkpoint(start, [start])];
     while (queue.length > 0) {
-        console.log("AFTER SORT:", JSON.parse(JSON.stringify(queue)));
         let checkpoint = queue.shift();
-        if (field[checkpoint.point.x][checkpoint.point.y] == "e")  {
+        if (field[checkpoint.point.y][checkpoint.point.x] == "e")  {
             return checkpoint.path;
         }
         let neighbors = getNeighbors(checkpoint.point, field);
-        if (field[checkpoint.point.x][checkpoint.point.y] != "x")  {
-            for (i = 0; i < neighbors.length; i++){
+        if (field[checkpoint.point.y][checkpoint.point.x] != "x")  {
+            for (let i = 0; i < neighbors.length; i++){
                 let new_path = checkpoint.path.slice();
                 new_path.push(neighbors[i]);
                 let new_checkpoint = new Checkpoint(neighbors[i], new_path);
                 queue.push(new_checkpoint);
             }
         }
-        field[checkpoint.point.x][checkpoint.point.y] = "x";
+        field[checkpoint.point.y][checkpoint.point.x] = "x";
     }
     alert("No path found!");
 }
@@ -25,8 +24,8 @@ function findPathWithBFS(field) {
 }
 
 function findStart(field) {
-    for (i = 0; i < field.length; i++) {
-        for (j = 0; j < field[0].length; j++) {
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[0].length; j++) {
             if (field[i][j] == "s") {
                 return new Point(j, i);
             }
@@ -57,9 +56,9 @@ function getNeighbors(point, field) {
 }
 
 function neighborValid(point, field) {
-    if (point.x >= 0 && point.x < field.length &&
-        point.y >= 0 && point.y < field[0].length &&
-        (field[point.x][point.y] == "0" || field[point.x][point.y] == "e")) {
+    if (point.y >= 0 && point.y < field.length &&
+        point.x >= 0 && point.x < field[0].length &&
+        (field[point.y][point.x] == "0" || field[point.y][point.x] == "e")) {
 
         return true;
     }
@@ -67,6 +66,7 @@ function neighborValid(point, field) {
         return false;
     }
 }
+
 
 class Point {
     constructor(x, y) {

@@ -13,12 +13,6 @@ function quicksortChange(array, left, right) {
             let tmp = array[left];
             array[left] = array[right];
             array[right] = tmp;
-            /*
-            let a = array[left].h;
-            let b = array[right].h;
-            array[left].h = b;
-            array[right].h = a;
-            */
             left++;
             right--;
         }
